@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-      <h1>Мой кабинет</h1>
+      <h1>Мой кабинет Dashboard </h1>
       <router-link to="/item/new" class="btn btn-success">
         + Добавить объявление
       </router-link>

@@ -57,13 +57,14 @@ const login = async () => {
   
   try {
     const response = await authAPI.login(form.value.username, form.value.password)
+    console.log("response", response)
     localStorage.setItem('access_token', response.access_token)
     router.push('/dashboard')
   } catch (err) {
-    error.value = 'Неверный email или пароль'
-    console.error('Ошибка входа:', err)
+      error.value = 'Неверный email или пароль'
+      console.error('Ошибка входа:', err)
   } finally {
-    loading.value = false
+      loading.value = false
   }
 }
 </script>

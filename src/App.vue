@@ -4,9 +4,13 @@
       <div class="header-content">
         <router-link to="/" class="logo">Объявления</router-link>
         <div>
-          <router-link v-if="!isAuthenticated" to="/login" class="btn btn-primary">
-            Войти
-          </router-link>
+          {{ isAuthenticated  }}
+          <template v-if="!isAuthenticated" >
+            <router-link to="/login" class="btn btn-primary">
+              Войти
+            </router-link>
+          
+          </template>
           <template v-else>
             <router-link to="/dashboard" class="btn btn-secondary" style="margin-right: 10px;">
               Мой кабинет
@@ -31,6 +35,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const isAuthenticated = computed(() => {
+  console.log("isAuthenticated ", localStorage.getItem('access_token'))
   return !!localStorage.getItem('access_token')
 })
 

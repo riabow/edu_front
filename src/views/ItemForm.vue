@@ -77,7 +77,6 @@
 
         
         <div class="form-group">
-        
           <label>Тип объявления @*</label>
           <select v-model="form.itemtype_id" required>
             <option :value="null">Выберите тип</option>
@@ -87,9 +86,19 @@
           </select>
         </div>
         
+        {{ form }}  
+        <div class="form-group">
+          <label>category_id</label>
+          <select v-model="form.category_id" required>
+            <option :value="null">Выберите category_id </option>
+            <option v-for="cat in categories_2" :key="cat.id" :value="cat.id">
+              {{ cat.name }}
+            </option>
+          </select>
+        </div>
+        
 
-
-        {{  categories }}
+        <!-- 
         <div class="form-group">
           <label>Категория</label>
           <input 
@@ -114,7 +123,7 @@
             </div>
           </div>
         </div>
-        
+        -->
         <div class="form-group">
           <label>Цена *</label>
           <input 
@@ -223,6 +232,7 @@ const form = ref({
 
 const categorySearch = ref('')
 const categories = ref([])
+const categories_2 = ref([])
 const showCategoryDropdown = ref(false)
 
 const itemTypes = ref([])
@@ -410,13 +420,13 @@ const loadItem = async () => {
 
 const loadCategory = async () => {
   try {
-    // const data = await referenceAPI.getItemTypes()
-    // console.log("loadItemTypes", data)
-    // let ret = []
-    // for ( let n in data.Itemtype){
-    //   console.log(data.Itemtype[n].Itemtype.id, data.Itemtype[n].Itemtype.name)
-    //   ret.push({"id": data.Itemtype[n].Itemtype.id, "name": data.Itemtype[n].Itemtype.name})
-    // }
+    const data = await referenceAPI.getItemTypes()
+    console.log("loadItemTypes", data)
+    categories_2.value = []
+    for ( let n in data.Itemtype){
+      //console.log(data.Itemtype[n].Itemtype.id, data.Itemtype[n].Itemtype.name)
+      categories_2.value.push({"id": data.Itemtype[n].Itemtype.id, "name": data.Itemtype[n].Itemtype.name})
+    }
   } catch (err) {
     console.error('Ошибка загрузки loadCategory:', err)
   }  
