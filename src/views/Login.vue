@@ -50,6 +50,7 @@ const form = ref({
 
 const loading = ref(false)
 const error = ref('')
+const me = ref([])
 
 const login = async () => {
   loading.value = true
@@ -57,8 +58,13 @@ const login = async () => {
   
   try {
     const response = await authAPI.login(form.value.username, form.value.password)
-    console.log("response", response)
+    console.log("login response", response)
     localStorage.setItem('access_token', response.access_token)
+    const me = await authAPI.getCurrentUser()
+    localStorage.setItem('me', me)
+    console.log("me response", me.current_user)
+
+
     router.push('/dashboard')
   } catch (err) {
       error.value = 'Неверный email или пароль'
