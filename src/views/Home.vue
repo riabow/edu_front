@@ -324,16 +324,6 @@ const formatPrice = (price, priceFor) => {
 }
 
 
-
-
-
-const format_image_src_iii = (user_id, item_id, img_name ) =>{
-  if (!img_name) return 'IMG не указан'
-  let ret =  'http://api.1ctm.ru:9090/api/get_img/'+user_id+'/'+item_id+'/s/'+img_name;
-  return ret 
-}
-
-
 const handleImageError = (event) => {
   event.target.style.display = 'none'
 }
@@ -346,11 +336,6 @@ const getFormattedImageSrc = (item) => {
     console.error('Error parsing images_list:', error)
     return '/default-image.jpg'
   }
-}
-
-const format_image_src_1234 = (user_id, item_id, image_name) => {
-  if (!image_name) return '/default-image.jpg'
-  return `http://api.1ctm.ru:9090/api/get_img/${user_id}/${item_id}/s/${image_name}`
 }
 
 
