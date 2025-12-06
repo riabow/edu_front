@@ -231,9 +231,15 @@ body {
 }
 
 .actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
+  display: center;
+  gap: 1px;
+  margin-top: 5px;
+}
+
+.actions .small-button {
+  padding: 4px 10px;
+  font-size: 13px;
+  min-height: 28px;
 }
 
 .empty-state {

@@ -43,7 +43,12 @@ const isAuthenticated = computed(() => {
 
 const me = computed(() => {
   console.log("me ", localStorage.getItem('me'))
-  return localStorage.getItem('me')
+  if (localStorage.getItem('me_id')) {
+    return "current_user id "+localStorage.getItem('me_id')
+  } else{
+    return "Not logged in"
+  }
+  
   
 })
 
@@ -51,8 +56,9 @@ const me = computed(() => {
 const logout = () => {
   localStorage.removeItem('access_token')
   localStorage.removeItem('me')
-  
-  router.push('/')
+  localStorage.removeItem('me_id')
+  location.reload();
+  // router.push('/')
 }
 </script>
 

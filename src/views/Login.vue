@@ -62,10 +62,13 @@ const login = async () => {
     localStorage.setItem('access_token', response.access_token)
     const me = await authAPI.getCurrentUser()
     localStorage.setItem('me', me)
-    console.log("me response", me.current_user)
+    localStorage.setItem('me_id', me.current_user.id)
+    
+    console.log("me! ", me)
 
-
+    location.reload();
     router.push('/dashboard')
+
   } catch (err) {
       error.value = 'Неверный email или пароль'
       console.error('Ошибка входа:', err)

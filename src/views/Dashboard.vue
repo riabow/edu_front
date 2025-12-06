@@ -17,6 +17,9 @@
     
     <div v-else-if="items.length === 0" class="empty-state">
       <p>У вас пока нет объявлений</p>
+      <p>s</p>
+      <p>s</p>
+      <p>s</p>
       <router-link to="/item/new" class="btn btn-success" style="margin-top: 20px;">
         Создать первое объявление
       </router-link>
@@ -24,29 +27,32 @@
     
      <div v-else class="grid">
        <div v-for="item in items" :key="item.id" class="item-card">
-         <div @click="viewItem(item.id)" style="cursor: pointer;">
+         <div @click="viewItem(item.Items.id)" style="cursor: pointer;">
            <img 
-             v-if="item.main_image" 
-             :src="item.main_image" 
-             :alt="item.title"
+             v-if="item.Items.images_list" 
+             
+             :src = "getFormattedImageSrc(item.Items)" 
+             :alt="item.Items.title"
              @error="handleImageError"
            />
            <div v-else class="no-image">Нет изображения1</div>
-           <h3>{{ item.title }}</h3>
-           <p class="price">{{ formatPrice(item.price, item.price_for) }}</p>
-           <p class="location">{{ item.city_name }}</p>
-           <p class="type">{{ item.itemtype_name }}</p>
+           <h3>{{ item.Items.title }}</h3>
+           <p class="price">{{ formatPrice(item.Items.price, item.Items.price_for) }}</p>
+           <p class="location">{{ item.Items.city_name }}</p>
+           <p class="type">{{ item.Items.itemtype_name }}</p>
          </div>
          <div class="actions">
-           <button 
-             @click.stop="viewItem(item.id)" 
-             class="btn btn-secondary"
-             style="flex: 1;"
-           >
-             Просмотр
-           </button>
+           <div class="small-button">
+              <button 
+              @click.stop="viewItem(item.id)" 
+              class="btn btn-secondary"
+              style="flex: 1;"
+            >
+              Просмотр
+              </button>
+          
            <router-link 
-             :to="`/item/edit/${item.id}`" 
+             :to="`/item/edit/${item.Items.id}`" 
              class="btn btn-primary"
              style="flex: 1;"
              @click.stop
@@ -60,7 +66,8 @@
            >
              Удалить
            </button>
-         </div>
+            </div>
+          </div>
        </div>
      </div>
   </div>
@@ -69,7 +76,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { itemAPI } from '../api/api'
+import { itemAPI, format_image_src } from '../api/api'
 
 const router = useRouter()
 
@@ -81,15 +88,32 @@ onMounted(() => {
   loadItems()
 })
 
+
+
+
+
+const getFormattedImageSrc = (item) => {
+  console.log("getFormattedImageSrc",item.images_list, )
+   try {
+    const images = JSON.parse(item.images_list)
+    return format_image_src(item.user_id, item.id, images[0])
+  } catch (error) {
+    console.error('Error parsing images_list:', error)
+    return '/default-image.jpg'
+  }
+}
+
+
 const loadItems = async () => {
   loading.value = true
   error.value = ''
   
   try {
     const data = await itemAPI.getAllMyItems()
-    items.value = Array.isArray(data) ? data : []
+    console.log("get_all_my_items", data.my_items)
+    items.value = Array.isArray(data.my_items) ? data.my_items : []
     
-    // Загружаем изображения для каждого объявления
+    // Загружаем изображения для каждого объявления. my_items[0].Items.contacts
     for (let item of items.value) {
       if (item.id) {
         try {

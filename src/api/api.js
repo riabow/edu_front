@@ -10,6 +10,16 @@ const api = axios.create({
   }
 })
 
+
+export const format_image_src = (user_id, item_id, img_name ) =>{
+  if (!img_name) return 'IMG не указан'
+  let ret =  `${API_BASE_URL}/api/get_img/`+user_id+'/'+item_id+'/s/'+img_name;
+  return ret 
+}
+
+
+
+
 // Добавляем токен к запросам, если он есть
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('access_token')
