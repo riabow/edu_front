@@ -207,7 +207,14 @@ const handleCityInputFocus = () => {
 const loadItemTypes = async () => {
   try {
     const data = await referenceAPI.getItemTypes()
-    itemTypes.value = Array.isArray(data) ? data : []
+    console.log(" loadItemTypes ", data.Itemtype)
+    let ret = []
+    for (let n in data.Itemtype) {
+      ret.push({ "name":data.Itemtype[n].Itemtype.name , "id":data.Itemtype[n].Itemtype.id})
+    }
+    console.log(" loadItemTypes ret ", ret)
+    //itemTypes.value = Array.isArray(data) ? data.Itemtype : []
+    itemTypes.value = ret
   } catch (err) {
     console.error('Ошибка загрузки типов объявлений:', err)
   }

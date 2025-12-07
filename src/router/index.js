@@ -31,8 +31,8 @@ const routes = [
   {
     path: '/item/edit/:id',
     name: 'EditItem',
-    component: ItemForm
-    //meta: { requiresAuth: true }
+    component: ItemForm,
+    meta: { requiresAuth: true }
   },
   {
     path: '/item/:id',
