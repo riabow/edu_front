@@ -9,7 +9,9 @@
             <router-link to="/login" class="btn btn-primary">
               Войти
             </router-link>
-          
+           <router-link to="/register" class="btn btn-primary">
+              Register
+            </router-link>
           </template>
           <template v-else>
             <router-link to="/dashboard" class="btn btn-secondary" style="margin-right: 10px;">

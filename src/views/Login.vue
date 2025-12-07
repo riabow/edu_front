@@ -66,7 +66,7 @@ const login = async () => {
     
     console.log("me! ", me)
 
-    location.reload();
+    //location.reload();
     router.push('/dashboard')
 
   } catch (err) {

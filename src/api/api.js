@@ -39,6 +39,75 @@ export const authAPI = {
     })
     return response.data
   },
+
+  register: async (name, fullname, password_str,email, phone, descr ) => {
+    const formData = {
+      name: name,
+      fullname: fullname,
+      password_str: password_str,
+      email: email,
+      phone: phone,
+      descr: descr
+    }
+    try {
+      const response = await axios.post(`${API_BASE_URL}/api/register_new_user`, formData, {
+        headers: { 'accept': 'application/json',
+                  'Content-Type': 'application/json'
+        }
+      })
+
+    } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // Это ошибка axios
+      if (error.response) {
+        // Сервер ответил с кодом ошибки
+        console.error('📡 Статус код:', error.response.status);
+        console.error('📊 Данные ошибки:', error.response.data);
+        console.error('🔤 Статус текст:', error.response.statusText);
+        
+        // Пример обработки разных кодов
+        switch (error.response.status) {
+          case 500:
+            console.error('Ошибка регистрации');
+            // Можно показать пользователю
+            alert('Ошибка регистрации '+  error.response.data.detail );
+            break;
+          case 400:
+            console.error('Ошибка 400: Неверный запрос');
+            break;
+          case 401:
+            console.error('Ошибка 401: Не авторизован');
+            break;
+          case 404:
+            console.error('Ошибка 404: Ресурс не найден');
+            break;
+          default:
+            console.error(`Неизвестная ошибка: ${error.response.status}`);
+        }
+      } else if (error.request) {
+        // Запрос был сделан, но ответа нет
+        console.error('❌ Нет ответа от сервера');
+        console.error('Запрос:', error.request);
+      } else {
+        // Ошибка при настройке запроса
+        console.error('⚙️ Ошибка настройки:', error.message);
+      }
+    } else {
+      // Не axios ошибка
+      console.error('🚫 Неизвестная ошибка:', error);
+    }
+    
+    //throw error; // Пробрасываем дальше при необходимости
+  }
+
+
+
+
+
+    console.log("register response", response)
+    return response.data
+  },
+
   
   getCurrentUser: async () => {
     const response = await api.get('/users/me/')
