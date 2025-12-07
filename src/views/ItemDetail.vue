@@ -21,8 +21,7 @@
           <h1>{{ item.item[0].Items.title }}</h1> 
           <p class="item-price">{{ item.item[0].Items.price }} руб.</p> {{ item.item[0].Items.id }}
         </div>
-        {{ item.item[0].Items.images_list }}<br>
-        {{ images.value }}
+        
         <div class="item-images" v-if="images.length > 0">
           <div class="main-image">
             <img 
@@ -60,7 +59,7 @@
             <span class="info-value">{{ item.item[0].type || 'Не указан' }}</span>
           </div>
           
-          <div class="info-row" v-if="item.category_name">
+          <div class="info-row" v-if="item.item[0].category">
             <span class="info-label">Категория:</span>
             <span class="info-value">{{ item.item[0].category }}</span>
           </div>
@@ -76,19 +75,20 @@
           <p>{{ item.item[0].Items.descr  || 'Описание отсутствует' }}</p>
         </div>
         
-        <div class="item-contacts" v-if="item.contacts">
+        <div class="item-contacts" v-if="item.item[0].Items.contacts">
           <h2>Контакты</h2>
-          <p class="contacts-text">{{ item.contacts }}</p>
+          <p class="contacts-text">{{ item.item[0].Items.contacts }}</p>
         </div>
         
-        <div class="item-meta" v-if="item.created_at || item.user_name">
-          <div class="info-row" v-if="item.created_at">
+        <div class="item-meta" v-if="item.item[0].Items.publ_date">
+          <div class="info-row" v-if="item.item[0].Items.publ_date">
             <span class="info-label">Дата публикации:</span>
-            <span class="info-value">{{ formatDate(item.created_at) }}</span>
+            <span class="info-value">{{ formatDate(item.item[0].Items.publ_date) }}</span>
           </div>
-          <div class="info-row" v-if="item.user_name">
+          
+          <div class="info-row" v-if="item.item[0].Items.user_id">
             <span class="info-label">Автор:</span>
-            <span class="info-value">{{ item.user_name }}</span>
+            <span class="info-value">{{ item.item[0].Items.user_id }}</span>
           </div>
         </div>
       </div>

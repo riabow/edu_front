@@ -210,6 +210,12 @@ const router = useRouter()
 
 const isEdit = computed(() => !!route.params.id)
 
+if (isEdit){
+  if (!localStorage.getItem('me_id')) {
+    router.push('/login')
+  }
+}
+
 const form = ref({
   id: null,
   title: '',
@@ -358,7 +364,10 @@ const createNewItemId = async () => {
   console.log("createNewItemId")
   try {
     const data = await itemAPI.getNewItemId()
-    form.value.id = data.id || data.item_id || data
+    console.log(data)
+// {"new_item_id": 67}
+    form.value.id = data.new_item_id
+    console.log("form.value.id", form.value.id)
     if (!form.value.id) {
       error.value = 'Не удалось получить ID для нового объявления'
     }
@@ -420,7 +429,7 @@ const loadItem = async () => {
 
 const loadCategory = async () => {
   try {
-    const data = await referenceAPI.getItemTypes()
+    const data = await referenceAPI.getCategories()
     console.log("loadItemTypes", data)
     categories_2.value = []
     for ( let n in data.Itemtype){
