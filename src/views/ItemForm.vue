@@ -86,9 +86,10 @@
           </select>
         </div>
         
-        {{ form }}  
+        {{  }}  
+
         <div class="form-group">
-          <label>category_id</label>
+          <label>category_id!</label>
           <select v-model="form.category_id" required>
             <option :value="null">Выберите category_id </option>
             <option v-for="cat in categories_2" :key="cat.id" :value="cat.id">
@@ -404,7 +405,7 @@ const loadItem = async () => {
     // data.item[0].Items.id
     // Загружаем существующие изображения
     try {
-      console.log("data", data)
+      //console.log("data", data)
       const files = await itemAPI.getItemFiles(data.id)
       if (files && Array.isArray(files)) {
         existingImages.value = files.map(file => ({
@@ -430,11 +431,11 @@ const loadItem = async () => {
 const loadCategory = async () => {
   try {
     const data = await referenceAPI.getCategories()
-    console.log("loadItemTypes", data)
+    //console.log("loadCategory", data)
     categories_2.value = []
-    for ( let n in data.Itemtype){
-      //console.log(data.Itemtype[n].Itemtype.id, data.Itemtype[n].Itemtype.name)
-      categories_2.value.push({"id": data.Itemtype[n].Itemtype.id, "name": data.Itemtype[n].Itemtype.name})
+    for ( let n in data.category){
+      //console.log(data.category[n])
+      categories_2.value.push({"id": data.category[n].Category.id, "name": data.category[n].Category.name})
     }
   } catch (err) {
     console.error('Ошибка загрузки loadCategory:', err)
@@ -444,10 +445,10 @@ const loadCategory = async () => {
 const loadItemTypes = async () => {
   try {
     const data = await referenceAPI.getItemTypes()
-    console.log("loadItemTypes", data)
+    //console.log("loadItemTypes", data)
     let ret = []
     for ( let n in data.Itemtype){
-      console.log(data.Itemtype[n].Itemtype.id, data.Itemtype[n].Itemtype.name)
+      //console.log(data.Itemtype[n].Itemtype.id, data.Itemtype[n].Itemtype.name)
       ret.push({"id": data.Itemtype[n].Itemtype.id, "name": data.Itemtype[n].Itemtype.name})
     }
 
