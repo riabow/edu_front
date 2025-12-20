@@ -97,6 +97,11 @@
 </template>
 
 <script setup>
+import axios from 'axios'
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL 
+
+  
 import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useRouter } from 'vue-router'
@@ -141,12 +146,15 @@ const formatDate = (dateString) => {
 
 const formatImageSrc = (user_id, item_id, image_name) => {
   if (!image_name) return null
-  return `http://api.1ctm.ru:9090/api/get_img/${user_id}/${item_id}/b/${image_name}`
+  
+  //return `http://api.1ctm.ru:9090/api/get_img/${user_id}/${item_id}/b/${image_name}`
+  return `${API_BASE_URL}/api/get_img/${user_id}/${item_id}/b/${image_name}`
 }
 
 const formatImageThumbnail = (user_id, item_id, image_name) => {
   if (!image_name) return null
-  return `http://api.1ctm.ru:9090/api/get_img/${user_id}/${item_id}/s/${image_name}`
+  //return `http://api.1ctm.ru:9090/api/get_img/${user_id}/${item_id}/s/${image_name}`
+  return `${API_BASE_URL}/api/get_img/${user_id}/${item_id}/s/${image_name}`
 }
 
 const loadItem = async () => {

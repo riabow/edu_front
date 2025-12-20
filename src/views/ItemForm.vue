@@ -31,11 +31,6 @@
           ></textarea>
         </div>
         
-        
-
-
-        
-
         <div class="form-group city-input-group">
           <label>Город</label>
           <input 

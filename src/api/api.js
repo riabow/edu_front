@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-//const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://api.1ctm.ru:9090'
-const API_BASE_URL = 'http://api.1ctm.ru:9090'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://api.1ctm.ru:9090'
+//const API_BASE_URL = 'http://api.1ctm.ru:9090'
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -170,6 +170,18 @@ export const itemAPI = {
     return response.data
   },
   
+
+  upload_parts: async (itemId, file) => {
+    const formData = new FormData()
+    formData.append('item_id', itemId)
+    formData.append('file', file)
+    const response = await api.post('/api/upload_parts', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+    return response.data
+  },
+  
+
   getItemFiles: async (itemId) => {
     const response = await api.get(`/api/get_item_files/${itemId}`)
     //console.log(response.data)

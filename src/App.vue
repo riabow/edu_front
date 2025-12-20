@@ -4,7 +4,7 @@
       <div class="header-content">
         <router-link to="/" class="logo">Объявления</router-link>
         <div>
-          {{ me  }}
+          {{ me_}}
           <template v-if="!isAuthenticated" >
             <router-link to="/login" class="btn btn-primary">
               Войти
@@ -16,6 +16,9 @@
           <template v-else>
             <router-link to="/dashboard" class="btn btn-secondary" style="margin-right: 10px;">
               Мой кабинет
+            </router-link>
+            <router-link to="/myshop" class="btn btn-secondary" style="margin-right: 10px;">
+              Мой магазин
             </router-link>
             <button @click="logout" class="btn btn-secondary">
               Выйти
@@ -38,20 +41,19 @@ const router = useRouter()
 
 const isAuthenticated = computed(() => {
   console.log("isAuthenticated ", localStorage.getItem('access_token'))
+  console.log("isAuthenticated ", localStorage.getItem('me'))
   return !!localStorage.getItem('access_token')
   
 })
 
 
-const me = computed(() => {
+const me_ = computed(() => {
   console.log("me ", localStorage.getItem('me'))
-  if (localStorage.getItem('me_id')) {
-    return "current_user id "+localStorage.getItem('me_id')
+  if (localStorage.getItem('me')) {
+    return "current_user id "+localStorage.getItem('me').id
   } else{
     return "Not logged in"
   }
-  
-  
 })
 
 

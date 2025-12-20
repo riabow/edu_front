@@ -60,14 +60,17 @@ const login = async () => {
     const response = await authAPI.login(form.value.username, form.value.password)
     console.log("login response", response)
     localStorage.setItem('access_token', response.access_token)
-    const me = await authAPI.getCurrentUser()
-    localStorage.setItem('me', me)
-    localStorage.setItem('me_id', me.current_user.id)
+    const response_me = await authAPI.getCurrentUser()
+    localStorage.setItem('me', response_me.current_user)
+    localStorage.setItem('me_id', response_me.current_user.id)
+    localStorage.setItem('me_name', response_me.current_user.name)
     
-    console.log("me! ", me)
+    console.log("me! ", response_me.current_user)
+    
+    window.location = "/";
 
     //location.reload();
-    router.push('/dashboard')
+    //router.push('/')
 
   } catch (err) {
       error.value = 'Неверный email или пароль'
