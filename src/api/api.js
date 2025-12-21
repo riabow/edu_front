@@ -171,9 +171,8 @@ export const itemAPI = {
   },
   
 
-  upload_parts: async (itemId, file) => {
+  upload_parts: async (file) => {
     const formData = new FormData()
-    formData.append('item_id', itemId)
     formData.append('file', file)
     const response = await api.post('/api/upload_parts', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }

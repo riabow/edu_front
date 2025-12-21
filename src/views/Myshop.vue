@@ -52,6 +52,8 @@ const router = useRouter()
 const loading = ref(false)
 const error = ref('')
 const images = ref([])
+const fileInput = ref(null)
+const selectedFile = ref(null)
 
 const form = ref({
   id: null,
@@ -65,7 +67,7 @@ onMounted(() => {
 
 const upload_table = async () => {
   try {
-    const response = await itemAPI.uploadTable(form.value.id, form.value.table)
+    const response = await itemAPI.upload_parts( selectedFile.value)
     console.log("upload_table", response)
   } catch (error) {
     console.error('Ошибка загрузки таблицы:', error)
@@ -73,19 +75,21 @@ const upload_table = async () => {
 }
 
 const handleFileSelect = (event) => {
-  const files = Array.from(event.target.files)
-  files.forEach(file => {
-    if (file.type.startsWith('image/')) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        images.value.push({
-          file: file,
-          preview: e.target.result
-        })
-      }
-      reader.readAsDataURL(file)
-    }
-  })
+  selectedFile.value = event.target.files[0]
+
+  // const files = Array.from(event.target.files)
+  // files.forEach(file => {
+  //   if (file.type.startsWith('image/')) {
+  //     const reader = new FileReader()
+  //     reader.onload = (e) => {
+  //       images.value.push({
+  //         file: file,
+  //         preview: e.target.result
+  //       })
+  //     }
+  //     reader.readAsDataURL(file)
+  //   }
+  // })
 }
 
 
